@@ -52,7 +52,7 @@ class ConvLSTMCell(tf.nn.rnn_cell.RNNCell):
 
         #####
         self._size = tf.TensorShape(shape + [self._filters])
-        self._feature_axis = self._size.ndims - 1 # maybe this should be -1?
+        self._feature_axis = self._size.ndims # maybe this should be -1?
         self._data_format = None
     elif data_format == 'channels_first':
         self._size = tf.TensorShape([self._filters] + shape)

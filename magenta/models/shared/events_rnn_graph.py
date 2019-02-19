@@ -78,7 +78,6 @@ def make_convlstm_cell(num_layers,
   
   cells = []
 
-  ##### I'M NOT EVEN SURE IF YOU CAN CHOOSE THE NUMBER OF THE LAYERS HERE
   for i in range(num_layers):
 
     cell = ConvLSTMCell(shape, filters, kernel)
@@ -86,9 +85,12 @@ def make_convlstm_cell(num_layers,
 
   ##### THIS MAY NOT BE RIGHT! I DON'T KNOW WHAT TO DO HERE FOR THIS
   ### I'm pretty sure it needs to be wrapped up in something to return this cell
-  cell = tf.contrib.rnn.MultiRNNCell(cells)
+  #cell = tf.contrib.rnn.MultiRNNCell(cells)
 
-  return cell
+  initial_state = cell.zero_state(hparams.batch_size, tf.float32)
+
+
+  return cells, initial_state
 
 def state_tuples_to_cudnn_lstm_state(lstm_state_tuples):
   """Convert LSTMStateTuples to CudnnLSTM format."""
@@ -304,9 +306,9 @@ def get_build_graph_fn(mode, config, sequence_example_file_paths=None):
       channels = 1
       filters = 16
 
-      cell = make_convlstm_cell(hparams.num_layers, shape, filters, kernel)
+      cell, initial_state = make_convlstm_cell(hparams.num_layers, shape, filters, kernel)
 
-      initial_state = cell.zero_state(hparams.batch_size, tf.float32)
+      #initial_state = cell.zero_state(hparams.batch_size, tf.float32)
 
 
       '''
