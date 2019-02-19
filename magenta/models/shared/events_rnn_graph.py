@@ -70,6 +70,7 @@ def make_rnn_cell(rnn_layer_sizes,
 
 # added by Michael on 2/16/19
 def make_convlstm_cell(num_layers,
+                       batch_size,
                        shape,
                        filters,
                        kernel):
@@ -87,7 +88,7 @@ def make_convlstm_cell(num_layers,
   ### I'm pretty sure it needs to be wrapped up in something to return this cell
   #cell = tf.contrib.rnn.MultiRNNCell(cells)
 
-  initial_state = cell.zero_state(hparams.batch_size, tf.float32)
+  initial_state = cell.zero_state(batch_size, tf.float32)
 
 
   return cells, initial_state
@@ -306,7 +307,7 @@ def get_build_graph_fn(mode, config, sequence_example_file_paths=None):
       channels = 1
       filters = 16
 
-      cell, initial_state = make_convlstm_cell(hparams.num_layers, shape, filters, kernel)
+      cell, initial_state = make_convlstm_cell(hparams.num_layers, hparams.batch_size, shape, filters, kernel)
 
       #initial_state = cell.zero_state(hparams.batch_size, tf.float32)
 
