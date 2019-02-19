@@ -86,9 +86,9 @@ def make_convlstm_cell(num_layers,
 
   ##### THIS MAY NOT BE RIGHT! I DON'T KNOW WHAT TO DO HERE FOR THIS
   ### I'm pretty sure it needs to be wrapped up in something to return this cell
-  cell = tf.contrib.rnn.MultiRNNCell(cells)
+  #cell = tf.contrib.rnn.MultiRNNCell(cells)
 
-  return cell
+  return cells
 
 def state_tuples_to_cudnn_lstm_state(lstm_state_tuples):
   """Convert LSTMStateTuples to CudnnLSTM format."""

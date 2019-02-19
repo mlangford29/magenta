@@ -50,7 +50,7 @@ class ConvLSTMCell(tf.nn.rnn_cell.RNNCell):
     self._peephole = peephole
     if data_format == 'channels_last':
 
-        # SHAPE, which is currently layer sizes, gets put into SIZE
+        #####
         self._size = tf.TensorShape(shape + [self._filters])
         self._feature_axis = self._size.ndims # maybe this should be -1?
         self._data_format = None
