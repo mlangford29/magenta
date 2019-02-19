@@ -331,7 +331,7 @@ def get_build_graph_fn(mode, config, sequence_example_file_paths=None):
 
       # might need to add dtype=inputs.dtype do the end of this
       # put this at the outside of the loop
-      outputs, final_state = tf.nn.dynamic_rnn(cell, inputs, dtype=inputs.dtype)#initial_state=initial_state)
+      outputs, final_state = tf.nn.dynamic_rnn(cell, inputs, dtype=inputs.dtype, initial_state=initial_state)
 
     else:
       cell = make_rnn_cell(
