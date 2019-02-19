@@ -290,7 +290,9 @@ def get_build_graph_fn(mode, config, sequence_example_file_paths=None):
       ##### SHAPE IS WRONG CURRENTLY HARDCODING TO TRY TO FIND ISSUE
       # how can we grab the size we're supposed to be?
       # pretty sure this is "lengths" around line 257. Not sure if this is 1D or not
-      print(lengths)
+      print('')
+      print('labels = {}'.format(labels))
+      print('')
       shape = lengths
 
       # mAY NEED TO UPDATE THIS BASED ON RNN_LAYER_SIZES?
