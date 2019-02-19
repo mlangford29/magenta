@@ -62,10 +62,31 @@ def make_rnn_cell(rnn_layer_sizes,
         cell, output_keep_prob=dropout_keep_prob)
     cells.append(cell)
 
+  ### USE TF.NN.DYNAMIC_RNN(CELL)
+  # referring to https://github.com/carlthome/tensorflow-convlstm-cell
   cell = tf.contrib.rnn.MultiRNNCell(cells)
 
   return cell
 
+# added by Michael on 2/16/19
+def make_convlstm_cell(num_layers,
+                       shape,
+                       filters,
+                       kernel):
+
+  from .events_rnn_model import ConvLSTMCell
+  
+  cells = []
+
+  ##### I'M NOT EVEN SURE IF YOU CAN CHOOSE THE NUMBER OF THE LAYERS HERE
+  for i in range(num_layers):
+
+    cell = ConvLSTMCell(shape, filters, kernel)
+    cells.append(cell)
+
+  ##### THIS MAY NOT BE RIGHT! I DON'T KNOW WHAT TO DO HERE FOR THIS
+  ### I'm pretty sure it needs to be wrapped up in something to return this cell
+  cell = tf.contrib.rnn.MultiRNNCell(cells)
 
 def state_tuples_to_cudnn_lstm_state(lstm_state_tuples):
   """Convert LSTMStateTuples to CudnnLSTM format."""
@@ -257,6 +278,45 @@ def get_build_graph_fn(mode, config, sequence_example_file_paths=None):
           expanded_inputs, hparams.rnn_layer_sizes, hparams.batch_size, mode,
           dropout_keep_prob=dropout_keep_prob,
           residual_connections=hparams.residual_connections)
+
+    # added by Michael. Trying to find a way to extract
+    # whether or not this is the convlstm model
+    # and initializing it differently here
+    elif config.details.id == 'convlstm':
+
+      # WE'RE CURRENTLY HARDCODING SOME OF THIS STUFF AND I HOPE TO NOT DO THAT SOON
+      #from .events_rnn_model import ConvLSTMCell
+
+      ##### SHAPE IS WRONG CURRENTLY HARDCODING TO TRY TO FIND ISSUE
+      # how can we grab the size we're supposed to be?
+      # pretty sure this is "lengths" around line 257. Not sure if this is 1D or not
+      shape = lengths
+
+      # mAY NEED TO UPDATE THIS BASED ON RNN_LAYER_SIZES?
+      kernel = [16] # not really sure if this is the best way to do this
+      channels = 1
+      filters = 16
+
+      cell = make_convlstm_cell(hparams.num_layers, shape, filters, kernel)
+
+      initial_state = cell.zero_state(hparams.batch_size, tf.float32)
+
+
+      '''
+      # create these within a loop and the layer sizes!
+      cells = []
+      for _ in range(len(rnn_layer_sizes)):
+
+        cell = ConvLSTMCell(shape, filters, kernel)
+
+        initial_state = cell.zero_state(hparams.batch_size, tf.float32) # might not need
+
+        cells.append(cell)
+      '''
+
+      # might need to add dtype=inputs.dtype do the end of this
+      # put this at the outside of the loop
+      outputs, final_state = tf.nn.dynamic_rnn(cell, inputs, initial_state=initial_state)
 
     else:
       cell = make_rnn_cell(

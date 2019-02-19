@@ -339,5 +339,20 @@ default_configs = {
             magenta.music.PitchHistogramPerformanceControlSignal(
                 window_size_seconds=5.0)
         ],
-        optional_conditioning=True)
+        optional_conditioning=True),
+
+    'convlstm': PerformanceRnnConfig(
+        magenta.protobuf.generator_pb2.GeneratorDetails(
+            id='convlstm',
+            description='Convolutional LSTM architecture on performance with dynamics'),
+        magenta.music.OneHotEventSequenceEncoderDecoder(
+            magenta.music.PerformanceOneHotEncoding(
+                num_velocity_bins=32)),
+        tf.contrib.training.HParams(
+            batch_size=64,
+            num_layers=3,
+            dropout_keep_prob=1.0,
+            clip_norm=3,
+            learning_rate=0.001),
+        num_velocity_bins=32)
 }
