@@ -51,7 +51,7 @@ class ConvLSTMCell(tf.nn.rnn_cell.RNNCell):
     if data_format == 'channels_last':
 
         #####
-        self._size = tf.TensorShape(shape + [self._filters])
+        self._size = tf.TensorShape(shape)# + [self._filters])
         self._feature_axis = self._size.ndims # maybe this should be -1?
         self._data_format = None
     elif data_format == 'channels_first':
