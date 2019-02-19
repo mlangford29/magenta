@@ -295,7 +295,7 @@ def get_build_graph_fn(mode, config, sequence_example_file_paths=None):
       print('input size = {}'.format(input_size))
       print('')
       '''
-      shape = input_size
+      shape = [input_size]
 
       # mAY NEED TO UPDATE THIS BASED ON RNN_LAYER_SIZES?
       kernel = [16] # not really sure if this is the best way to do this
