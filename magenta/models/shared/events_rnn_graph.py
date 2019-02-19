@@ -76,6 +76,8 @@ def make_convlstm_cell(num_layers,
                        kernel):
 
   from .events_rnn_model import ConvLSTMCell
+
+  '''
   
   cells = []
 
@@ -83,6 +85,9 @@ def make_convlstm_cell(num_layers,
 
     cell = ConvLSTMCell(shape, filters, kernel)
     cells.append(cell)
+  '''
+
+  cell = ConvLSTMCell(shape, filters, kernel)
 
   ##### THIS MAY NOT BE RIGHT! I DON'T KNOW WHAT TO DO HERE FOR THIS
   ### I'm pretty sure it needs to be wrapped up in something to return this cell
@@ -91,7 +96,7 @@ def make_convlstm_cell(num_layers,
   initial_state = cell.zero_state(batch_size, tf.float32)
 
 
-  return cells, initial_state
+  return cell, initial_state
 
 def state_tuples_to_cudnn_lstm_state(lstm_state_tuples):
   """Convert LSTMStateTuples to CudnnLSTM format."""
