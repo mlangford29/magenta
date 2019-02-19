@@ -86,9 +86,9 @@ def make_convlstm_cell(num_layers,
 
   ##### THIS MAY NOT BE RIGHT! I DON'T KNOW WHAT TO DO HERE FOR THIS
   ### I'm pretty sure it needs to be wrapped up in something to return this cell
-  #cell = tf.contrib.rnn.MultiRNNCell(cells)
+  cell = tf.contrib.rnn.MultiRNNCell(cells)
 
-  return cells
+  return cell
 
 def state_tuples_to_cudnn_lstm_state(lstm_state_tuples):
   """Convert LSTMStateTuples to CudnnLSTM format."""
@@ -306,7 +306,7 @@ def get_build_graph_fn(mode, config, sequence_example_file_paths=None):
 
       cell = make_convlstm_cell(hparams.num_layers, shape, filters, kernel)
 
-      #initial_state = cell.zero_state(hparams.batch_size, tf.float32)
+      initial_state = cell.zero_state(hparams.batch_size, tf.float32)
 
 
       '''
@@ -323,7 +323,7 @@ def get_build_graph_fn(mode, config, sequence_example_file_paths=None):
 
       # might need to add dtype=inputs.dtype do the end of this
       # put this at the outside of the loop
-      outputs, final_state = tf.nn.dynamic_rnn(cell, inputs)#, initial_state=initial_state)
+      outputs, final_state = tf.nn.dynamic_rnn(cell, inputs, initial_state=initial_state)
 
     else:
       cell = make_rnn_cell(
