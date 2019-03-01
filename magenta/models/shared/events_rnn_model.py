@@ -35,7 +35,6 @@ ModelState = collections.namedtuple(
 class EventSequenceRnnModelError(Exception):
   pass
 
-
 def _extend_control_events_default(control_events, events, state):
   """Default function for extending control event sequence.
 

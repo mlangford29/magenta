@@ -47,6 +47,7 @@ def make_rnn_cell(rnn_layer_sizes,
   Returns:
       A tf.contrib.rnn.MultiRNNCell based on the given hyperparameters.
   """
+
   cells = []
   for i in range(len(rnn_layer_sizes)):
     cell = base_cell(rnn_layer_sizes[i])
@@ -62,8 +63,34 @@ def make_rnn_cell(rnn_layer_sizes,
         cell, output_keep_prob=dropout_keep_prob)
     cells.append(cell)
 
-  ### USE TF.NN.DYNAMIC_RNN(CELL)
-  # referring to https://github.com/carlthome/tensorflow-convlstm-cell
+  cell = tf.contrib.rnn.MultiRNNCell(cells)
+
+  return cell
+
+# we need a separate function for glstm. That would be easiest
+def make_glstm_cell(rnn_layer_sizes,
+                    dropout_keep_prob=1.0,
+                    attn_length=0,
+                    base_cell=tf.contrib.rnn.GLSTMCell):
+  
+  # hardcoding this to 4 right now. Maybe we can use 8 or 16 later
+  num_groups = 4
+
+  cells = []
+  for i in range(len(rnn_layer_sizes)):
+    cell = base_cell(rnn_layer_sizes[i], number_of_groups=num_groups)
+    if attn_length and not cells:
+      # Add attention wrapper to first layer.
+      cell = tf.contrib.rnn.AttentionCellWrapper(
+          cell, attn_length, state_is_tuple=True)
+    if residual_connections:
+      cell = tf.contrib.rnn.ResidualWrapper(cell)
+      if i == 0 or rnn_layer_sizes[i] != rnn_layer_sizes[i - 1]:
+        cell = tf.contrib.rnn.InputProjectionWrapper(cell, rnn_layer_sizes[i])
+    cell = tf.contrib.rnn.DropoutWrapper(
+        cell, output_keep_prob=dropout_keep_prob)
+    cells.append(cell)
+
   cell = tf.contrib.rnn.MultiRNNCell(cells)
 
   return cell
@@ -222,6 +249,30 @@ def get_build_graph_fn(mode, config, sequence_example_file_paths=None):
 
   tf.logging.info('hparams = %s', hparams.values())
 
+  ##### HERE IS WHERE WE SHOULD PULL OUT WHAT BASE_CELL WE WANT TO USE
+  ##### BASED ON THE CONFIG WE'VE CHOSEN
+  rnn_config_str = config.details.id
+
+  if rnn_config_str == 'gru':
+    config_base_cell = tf.contrib.rnn.GRUCell
+  elif rnn_config_str == 'indy_gru':
+    config_base_cell = tf.contrib.rnn.python.ops.rnn_cell.IndyGRUCell
+  elif rnn_config_str == 'grid_lstm':
+    config_base_cell = tf.contrib.rnn.python.ops.rnn_cell.GridLSTMCell
+  elif rnn_config_str == 'bidirectional_grid_lstm':
+    config_base_cell = tf.contrib.rnn.python.ops.rnn_cell.BidirectionalGridLSTMCell
+  elif rnn_config_str == 'phased_lstm':
+    config_base_cell = tf.contrib.rnn.python.ops.rnn_cell.PhasedLSTMCell
+  elif rnn_config_str == 'glstm':
+    config_base_cell = tf.contrib.rnn.python.ops.rnn_cell.GLSTMCell
+  elif rnn_config_str == 'timefreq_lstm':
+    config_base_cell = tf.contrib.rnn.python.ops.rnn_cell.TimeFreqLSTMCell
+  elif rnn_config_str == 'intersection_rnn':
+    config_base_cell = tf.contrib.rnn.python.ops.rnn_cell.IntersectionRNNCell
+  else:
+    config_base_cell = tf.contrib.rnn.BasicLSTMCell
+
+
   input_size = encoder_decoder.input_size
   num_classes = encoder_decoder.num_classes
   no_event_label = encoder_decoder.default_event_label
@@ -260,11 +311,20 @@ def get_build_graph_fn(mode, config, sequence_example_file_paths=None):
           residual_connections=hparams.residual_connections)
 
     else:
-      cell = make_rnn_cell(
-          hparams.rnn_layer_sizes,
+
+      # special case for glstm cause we need num_groups for it. Currently in function
+      if rnn_config_str == 'glstm':
+        cell = make_glstm_cell(hparams.rnn_layer_sizes,
           dropout_keep_prob=dropout_keep_prob,
           attn_length=hparams.attn_length,
-          residual_connections=hparams.residual_connections)
+          base_cell=config_base_cell)
+      else:
+        cell = make_rnn_cell(
+            hparams.rnn_layer_sizes,
+            dropout_keep_prob=dropout_keep_prob,
+            attn_length=hparams.attn_length,
+            base_cell=config_base_cell,
+            residual_connections=hparams.residual_connections)
 
       initial_state = cell.zero_state(hparams.batch_size, tf.float32)
 
