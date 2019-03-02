@@ -459,5 +459,18 @@ default_configs = {
             dropout_keep_prob=1.0,
             clip_norm=3,
             learning_rate=0.001),
+        num_velocity_bins=32),
+
+    'simple_rnn': PerformanceRnnConfig(
+        magenta.protobuf.generator_pb2.GeneratorDetails(
+            id='simple_rnn',
+            description='Performance and dymanics with simple RNN'),
+        magenta.music.OneHotEventSequenceEncoderDecoder(
+            magenta.music.PerformanceOneHotEncoding(
+                num_velocity_bins=32)),
+        tf.contrib.training.HParams(
+            batch_size=64,
+            rnn_layer_sizes=[512, 512, 512],
+            learning_rate=0.001),
         num_velocity_bins=32)
 }

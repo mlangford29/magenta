@@ -48,13 +48,32 @@ def make_rnn_cell(rnn_layer_sizes,
       A tf.contrib.rnn.MultiRNNCell based on the given hyperparameters.
   """
 
+  # pull this out
+  rnn_config_str = config.details.id
+  encoder_decoder = config.encoder_decoder
+  input_size = encoder_decoder.input_size
+  num_classes = encoder_decoder.num_classes # looks like we need feature size?
+
   cells = []
   for i in range(len(rnn_layer_sizes)):
-    cell = base_cell(rnn_layer_sizes[i])
+
+    if rnn_config_str == 'grid_lstm' or rnn_config_str == 'bidirectional_grid_lstm':
+      #freq_skip = 1
+      #n_freq_blocks = [int((input_size - num_classes) / freq_skip) + 1] #####
+
+      cell = base_cell(rnn_layer_sizes[i], num_frequency_blocks=[num_classes])#num_frequency_blocks=n_freq_blocks, frequency_skip=freq_skip)
+    elif rnn_config_str == 'glstm':
+      cell = base_cell(rnn_layer_sizes[i], num_groups=4) #####
+    elif(rnn_config_str == 'intersection_rnn') and (i == 0):
+      cell = base_cell(rnn_layer_sizes[0], num_in_proj=rnn_layer_sizes[0])
+    else:
+      cell = base_cell(rnn_layer_sizes[i])
+
     if attn_length and not cells:
       # Add attention wrapper to first layer.
       cell = tf.contrib.rnn.AttentionCellWrapper(
           cell, attn_length, state_is_tuple=True)
+    
     if residual_connections:
       cell = tf.contrib.rnn.ResidualWrapper(cell)
       if i == 0 or rnn_layer_sizes[i] != rnn_layer_sizes[i - 1]:
@@ -67,6 +86,7 @@ def make_rnn_cell(rnn_layer_sizes,
 
   return cell
 
+'''
 # we need a separate function for glstm. That would be easiest
 def make_glstm_cell(rnn_layer_sizes,
                     dropout_keep_prob=1.0,
@@ -94,6 +114,7 @@ def make_glstm_cell(rnn_layer_sizes,
   cell = tf.contrib.rnn.MultiRNNCell(cells)
 
   return cell
+'''
 
 def state_tuples_to_cudnn_lstm_state(lstm_state_tuples):
   """Convert LSTMStateTuples to CudnnLSTM format."""
@@ -269,6 +290,8 @@ def get_build_graph_fn(mode, config, sequence_example_file_paths=None):
     config_base_cell = tf.contrib.rnn.TimeFreqLSTMCell
   elif rnn_config_str == 'intersection_rnn':
     config_base_cell = tf.contrib.rnn.IntersectionRNNCell
+  elif rnn_config_str == 'simple_rnn':
+    config_base_cell = tf.contrib.rnn.SRUCell
   else:
     config_base_cell = tf.contrib.rnn.BasicLSTMCell
 
@@ -311,20 +334,12 @@ def get_build_graph_fn(mode, config, sequence_example_file_paths=None):
           residual_connections=hparams.residual_connections)
 
     else:
-
-      # special case for glstm cause we need num_groups for it. Currently in function
-      if rnn_config_str == 'glstm':
-        cell = make_glstm_cell(hparams.rnn_layer_sizes,
+      cell = make_rnn_cell(
+          hparams.rnn_layer_sizes,
           dropout_keep_prob=dropout_keep_prob,
           attn_length=hparams.attn_length,
-          base_cell=config_base_cell)
-      else:
-        cell = make_rnn_cell(
-            hparams.rnn_layer_sizes,
-            dropout_keep_prob=dropout_keep_prob,
-            attn_length=hparams.attn_length,
-            base_cell=config_base_cell,
-            residual_connections=hparams.residual_connections)
+          base_cell=config_base_cell,
+          residual_connections=hparams.residual_connections)
 
       initial_state = cell.zero_state(hparams.batch_size, tf.float32)
 
