@@ -258,17 +258,17 @@ def get_build_graph_fn(mode, config, sequence_example_file_paths=None):
   elif rnn_config_str == 'indy_gru':
     config_base_cell = tf.contrib.rnn.IndyGRUCell
   elif rnn_config_str == 'grid_lstm':
-    config_base_cell = tf.contrib.rnn.python.ops.rnn_cell.GridLSTMCell
+    config_base_cell = tf.contrib.rnn.GridLSTMCell
   elif rnn_config_str == 'bidirectional_grid_lstm':
-    config_base_cell = tf.contrib.rnn.python.ops.rnn_cell.BidirectionalGridLSTMCell
+    config_base_cell = tf.contrib.rnn.BidirectionalGridLSTMCell
   elif rnn_config_str == 'phased_lstm':
-    config_base_cell = tf.contrib.rnn.python.ops.rnn_cell.PhasedLSTMCell
+    config_base_cell = tf.contrib.rnn.PhasedLSTMCell
   elif rnn_config_str == 'glstm':
-    config_base_cell = tf.contrib.rnn.python.ops.rnn_cell.GLSTMCell
+    config_base_cell = tf.contrib.rnn.GLSTMCell
   elif rnn_config_str == 'timefreq_lstm':
-    config_base_cell = tf.contrib.rnn.python.ops.rnn_cell.TimeFreqLSTMCell
+    config_base_cell = tf.contrib.rnn.TimeFreqLSTMCell
   elif rnn_config_str == 'intersection_rnn':
-    config_base_cell = tf.contrib.rnn.python.ops.rnn_cell.IntersectionRNNCell
+    config_base_cell = tf.contrib.rnn.IntersectionRNNCell
   else:
     config_base_cell = tf.contrib.rnn.BasicLSTMCell
 
