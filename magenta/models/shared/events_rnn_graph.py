@@ -256,7 +256,7 @@ def get_build_graph_fn(mode, config, sequence_example_file_paths=None):
   if rnn_config_str == 'gru':
     config_base_cell = tf.contrib.rnn.GRUCell
   elif rnn_config_str == 'indy_gru':
-    config_base_cell = tf.contrib.rnn.python.ops.rnn_cell.IndyGRUCell
+    config_base_cell = tf.contrib.rnn.IndyGRUCell
   elif rnn_config_str == 'grid_lstm':
     config_base_cell = tf.contrib.rnn.python.ops.rnn_cell.GridLSTMCell
   elif rnn_config_str == 'bidirectional_grid_lstm':
