@@ -27,7 +27,8 @@ import tensorflow as tf
 from tensorflow.python.util import nest as tf_nest
 
 
-def make_rnn_cell(rnn_layer_sizes,
+def make_rnn_cell(config,
+                  rnn_layer_sizes,
                   dropout_keep_prob=1.0,
                   attn_length=0,
                   base_cell=tf.contrib.rnn.BasicLSTMCell,
@@ -335,6 +336,7 @@ def get_build_graph_fn(mode, config, sequence_example_file_paths=None):
 
     else:
       cell = make_rnn_cell(
+          config,
           hparams.rnn_layer_sizes,
           dropout_keep_prob=dropout_keep_prob,
           attn_length=hparams.attn_length,
