@@ -59,12 +59,14 @@ def make_rnn_cell(config,
   for i in range(len(rnn_layer_sizes)):
 
     if rnn_config_str == 'grid_lstm' or rnn_config_str == 'bidirectional_grid_lstm':
-      #freq_skip = 1
+      
+      freq_skip = 1
       #n_freq_blocks = [int((input_size - num_classes) / freq_skip) + 1] #####
 
       cell = base_cell(rnn_layer_sizes[i], 
                        num_frequency_blocks=[num_classes], 
-                       state_is_tuple=False) #num_frequency_blocks=n_freq_blocks, frequency_skip=freq_skip)
+                       state_is_tuple=False,
+                       frequency_skip=freq_skip) #num_frequency_blocks=n_freq_blocks)
     elif rnn_config_str == 'glstm':
       cell = base_cell(rnn_layer_sizes[i], number_of_groups=4) # can be anything that divides input_size
     elif(rnn_config_str == 'intersection_rnn') and (i == 0):
