@@ -61,10 +61,10 @@ def make_rnn_cell(config,
     if rnn_config_str == 'grid_lstm' or rnn_config_str == 'bidirectional_grid_lstm':
       
       freq_skip = 1
-      #n_freq_blocks = [int((input_size - num_classes) / freq_skip) + 1] #####
+      n_freq_blocks = [int((input_size - num_classes) / freq_skip) + 1] #####
 
       cell = base_cell(rnn_layer_sizes[i], 
-                       num_frequency_blocks=[input_size], 
+                       num_frequency_blocks=n_freq_blocks, 
                        state_is_tuple=False,
                        frequency_skip=freq_skip,
                        feature_size=input_size)
