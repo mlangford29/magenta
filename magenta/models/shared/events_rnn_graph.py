@@ -67,7 +67,7 @@ def make_rnn_cell(config,
                        num_frequency_blocks=[input_size], 
                        state_is_tuple=False,
                        frequency_skip=freq_skip,
-                       feature_size=num_classes)
+                       feature_size=input_size)
     elif rnn_config_str == 'glstm':
       cell = base_cell(rnn_layer_sizes[i], number_of_groups=4) # can be anything that divides input_size
     elif(rnn_config_str == 'intersection_rnn') and (i == 0):
