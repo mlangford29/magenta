@@ -64,7 +64,7 @@ def make_rnn_cell(config,
       #n_freq_blocks = [int((input_size - num_classes) / freq_skip) + 1] #####
 
       cell = base_cell(rnn_layer_sizes[i], 
-                       num_frequency_blocks=[num_classes], 
+                       num_frequency_blocks=[input_size], 
                        state_is_tuple=False,
                        frequency_skip=freq_skip,
                        feature_size=num_classes)
