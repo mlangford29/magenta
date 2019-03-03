@@ -62,7 +62,9 @@ def make_rnn_cell(config,
       #freq_skip = 1
       #n_freq_blocks = [int((input_size - num_classes) / freq_skip) + 1] #####
 
-      cell = base_cell(rnn_layer_sizes[i], num_frequency_blocks=[num_classes, 1])#num_frequency_blocks=n_freq_blocks, frequency_skip=freq_skip)
+      cell = base_cell(rnn_layer_sizes[i], 
+                       num_frequency_blocks=[num_classes], 
+                       state_is_tuple=False) #num_frequency_blocks=n_freq_blocks, frequency_skip=freq_skip)
     elif rnn_config_str == 'glstm':
       cell = base_cell(rnn_layer_sizes[i], number_of_groups=4) # can be anything that divides input_size
     elif(rnn_config_str == 'intersection_rnn') and (i == 0):
