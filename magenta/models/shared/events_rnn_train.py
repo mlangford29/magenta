@@ -18,8 +18,8 @@ import tensorflow as tf
 
 
 def run_training(build_graph_fn, train_dir, num_training_steps=None,
-                 summary_frequency=10, save_checkpoint_secs=60,
-                 checkpoints_to_keep=10, keep_checkpoint_every_n_hours=1,
+                 summary_frequency=100, save_checkpoint_secs=120,
+                 checkpoints_to_keep=10, keep_checkpoint_every_n_hours=2,
                  master='', task=0, num_ps_tasks=0):
   """Runs the training loop.
 
@@ -45,6 +45,8 @@ def run_training(build_graph_fn, train_dir, num_training_steps=None,
     with tf.device(tf.train.replica_device_setter(num_ps_tasks)):
       build_graph_fn()
 
+      # summary number of steps should be equal to the summary_frequency
+      summary_n_steps = summary_frequency
       global_step = tf.train.get_or_create_global_step()
       loss = tf.get_collection('loss')[0]
       perplexity = tf.get_collection('metrics/perplexity')[0]
@@ -72,6 +74,9 @@ def run_training(build_graph_fn, train_dir, num_training_steps=None,
               max_to_keep=checkpoints_to_keep,
               keep_checkpoint_every_n_hours=keep_checkpoint_every_n_hours))
 
+      hooks.append(tf.train.SummarySaverHook(
+                    output_dir='..', save_steps=summary_n_steps, scaffold=scaffold))
+      
       tf.logging.info('Starting training loop...')
       tf.contrib.training.train(
           train_op=train_op,
