@@ -80,7 +80,6 @@ def main(unused_argv):
       os.path.expanduser(FLAGS.sequence_example_file))
   run_dir = os.path.expanduser(FLAGS.run_dir)
 
-  print(performance_model.default_configs)
   config = performance_model.default_configs[FLAGS.config]
   config.hparams.parse(FLAGS.hparams)
 
