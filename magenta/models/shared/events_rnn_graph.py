@@ -296,6 +296,8 @@ def get_build_graph_fn(mode, config, sequence_example_file_paths=None):
     config_base_cell = tf.contrib.rnn.TimeFreqLSTMCell
   elif rnn_config_str == 'intersection_rnn':
     config_base_cell = tf.contrib.rnn.IntersectionRNNCell
+  elif rnn_config_str == 'ugrnn':
+    config_base_cell = tf.contrib.rnn.UGRNNCell
   elif rnn_config_str == 'simple_rnn':
     config_base_cell = tf.contrib.rnn.SRUCell
   else:
