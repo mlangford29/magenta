@@ -71,6 +71,7 @@ for config in config_list:
 
 		
 		print(_train_str)
+		print()
 		#os.system(_train_str)
 
 
