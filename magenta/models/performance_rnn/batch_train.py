@@ -35,7 +35,7 @@ config_names = ['lstm',
 				'ugrnn_attn',
 				'simple_rnn']
 
-config_to_name = zip(config_list, config_names)
+config_to_name = dict(zip(config_list, config_names))
 
 # function to choose the starting triad
 def make_starting_triad():
