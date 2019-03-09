@@ -7,7 +7,7 @@ import os
 ### end imports
 
 # mode!
-mode = 'train' # 'train', 'generate', or 'train and generate'
+mode = 'train and generate' # 'train', 'generate', or 'train and generate'
 
 # defining string skeletons to format and execute on command line
 input_dir_str = 'INPUT_DIRECTORY=./wtc_performance'
@@ -85,6 +85,7 @@ for config in config_list:
 			_generate_str += attn_substr
 
 		print(_generate_str)
+		print()
 		#os.system(_generate_str)
 
 print('Complete!')
