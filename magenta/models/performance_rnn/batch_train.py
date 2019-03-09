@@ -14,7 +14,7 @@ input_dir_str = 'INPUT_DIRECTORY=./wtc_performance'
 seq_str = 'SEQUENCES_TFRECORD=./notesequences.tfrecord'
 config_str = 'CONFIG={}'
 train_str = 'performance_rnn_train --config={} --run_dir=./logdir/{}_test --sequence_example_file=./sequence_examples/training_performances.tfrecord'
-generate_str = 'performance_rnn_generate --config={} --run_dir=./logdir/{}_test --output_dir=run_dir/generated --num_outputs=1 --num_steps=1000 --primer_pitches={} --temperature=0.9 --beam_size=10 --branch_factor=20 --steps_per_iteration=10'
+generate_str = 'performance_rnn_generate --config={} --run_dir=./logdir/{}_test --output_dir=run_dir/generated --num_outputs=1 --num_steps=1000 --primer_pitches={} --temperature=1.0 --beam_size=10 --branch_factor=20 --steps_per_iteration=10'
 attn_substr = ' --hparams=\'attn_length\'=100'
 
 # all the configs you want to try
@@ -24,16 +24,14 @@ config_list = ['performance_with_dynamics',
 				'indy_gru', 
 				'glstm', 
 				'intersection_rnn', #####
-				'ugrnn',
-				'simple_rnn']
+				'ugrnn']
 config_names = ['lstm', 
 				'lstm_attn', 
 				'gru_attn', 
 				'indy_gru_attn', 
 				'glstm_attn', 
 				'intersection_attn', #####
-				'ugrnn_attn',
-				'simple_rnn']
+				'ugrnn_attn']
 
 config_to_name = dict(zip(config_list, config_names))
 
@@ -69,11 +67,7 @@ for config in config_list:
 		if 'attn' in config_name:
 			_train_str += attn_substr
 
-		
-		print(_train_str)
-		print()
-		#os.system(_train_str)
-
+		os.system(_train_str)
 
 	if mode == 'generate' or mode == 'train and generate':
 
@@ -84,9 +78,7 @@ for config in config_list:
 		if 'attn' in config_name:
 			_generate_str += attn_substr
 
-		print(_generate_str)
-		print()
-		#os.system(_generate_str)
+		os.system(_generate_str)
 
 print('Complete!')
 

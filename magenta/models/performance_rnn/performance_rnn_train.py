@@ -37,7 +37,7 @@ tf.app.flags.DEFINE_string('sequence_example_file', '',
                            'Path to TFRecord file containing '
                            'tf.SequenceExample records for training or '
                            'evaluation.')
-tf.app.flags.DEFINE_integer('num_training_steps', 0,
+tf.app.flags.DEFINE_integer('num_training_steps', 100,
                             'The the number of global training steps your '
                             'model should take before exiting training. '
                             'Leave as 0 to run until terminated manually.')
@@ -67,6 +67,9 @@ tf.app.flags.DEFINE_string(
 
 
 def main(unused_argv):
+  
+  print('WE ARE ONLY TRAINING 100 STEPS BECAUSE WE TESTING RIGHT NOW')
+
   tf.logging.set_verbosity(FLAGS.log)
 
   if not FLAGS.run_dir:
