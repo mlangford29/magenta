@@ -48,7 +48,7 @@ def make_starting_triad():
 	# 3 semitones above the root. Add one more to that value if it's major
 	major_adjustment = random.randint(0,2) # 2 shouldn't be included in this
 
-	triad = [root, root + 3 + major_adjustment, root + 7]
+	triad = list([root,root + 3 + major_adjustment,root + 7])
 
 	return triad
 

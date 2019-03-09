@@ -37,10 +37,14 @@ tf.app.flags.DEFINE_string('sequence_example_file', '',
                            'Path to TFRecord file containing '
                            'tf.SequenceExample records for training or '
                            'evaluation.')
-tf.app.flags.DEFINE_integer('num_training_steps', 100,
+
+#####
+tf.app.flags.DEFINE_integer('num_training_steps', 50,
                             'The the number of global training steps your '
                             'model should take before exiting training. '
                             'Leave as 0 to run until terminated manually.')
+#####
+
 tf.app.flags.DEFINE_integer('num_eval_examples', 0,
                             'The number of evaluation examples your model '
                             'should process for each evaluation step.'
