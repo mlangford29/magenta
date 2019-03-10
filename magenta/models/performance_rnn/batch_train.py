@@ -33,7 +33,6 @@ config_names = ['lstm',
 				'intersection_attn', #####
 				'ugrnn_attn']
 
-config_to_name = dict(zip(config_list, config_names))
 
 # function to choose the starting triad
 def make_starting_triad():
@@ -56,9 +55,10 @@ def make_starting_triad():
 os.system(input_dir_str)
 os.system(seq_str)
 
-for config in config_list:
+for i in range(len(config_list)):
 
-	config_name = config_to_name[config]
+	config = config_list[i]
+	config_name = config_names[i]
 
 	if mode == 'train' or mode == 'train and generate':
 		
@@ -73,7 +73,7 @@ for config in config_list:
 
 		triad = make_starting_triad()
 
-		_generate_str = generate_str.format(config, config, config_name, triad)
+		_generate_str = generate_str.format(config, config_name, config_name, triad)
 
 		if 'attn' in config_name:
 			_generate_str += attn_substr
