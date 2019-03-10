@@ -14,7 +14,7 @@ input_dir_str = 'INPUT_DIRECTORY=./wtc_performance'
 seq_str = 'SEQUENCES_TFRECORD=./notesequences.tfrecord'
 config_str = 'CONFIG={}'
 train_str = 'python performance_rnn_train.py --config={} --run_dir=./logdir/{}_test --sequence_example_file=./sequence_examples/training_performances.tfrecord'
-generate_str = 'python performance_rnn_generate.py --config={} --run_dir=./logdir/{}_test --output_dir=run_dir/generated --num_outputs=1 --num_steps=1000 --primer_pitches={} --temperature=1.0 --beam_size=10 --branch_factor=20 --steps_per_iteration=10'
+generate_str = 'python performance_rnn_generate.py --config={} --run_dir=./logdir/{}_test --output_dir=./logdir/{}_test/generated --num_outputs=1 --num_steps=1000 --primer_pitches={} --temperature=1.0 --beam_size=10 --branch_factor=20 --steps_per_iteration=10'
 attn_substr = ' --hparams=\'attn_length\'=100'
 
 # all the configs you want to try
@@ -73,7 +73,7 @@ for config in config_list:
 
 		triad = make_starting_triad()
 
-		_generate_str = generate_str.format(config, config_name, triad)
+		_generate_str = generate_str.format(config, config, config_name, triad)
 
 		if 'attn' in config_name:
 			_generate_str += attn_substr
