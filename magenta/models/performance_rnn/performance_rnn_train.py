@@ -39,7 +39,7 @@ tf.app.flags.DEFINE_string('sequence_example_file', '',
                            'evaluation.')
 
 #####
-tf.app.flags.DEFINE_integer('num_training_steps', 50,
+tf.app.flags.DEFINE_integer('num_training_steps', 50000,
                             'The the number of global training steps your '
                             'model should take before exiting training. '
                             'Leave as 0 to run until terminated manually.')
@@ -49,11 +49,15 @@ tf.app.flags.DEFINE_integer('num_eval_examples', 0,
                             'The number of evaluation examples your model '
                             'should process for each evaluation step.'
                             'Leave as 0 to use the entire evaluation set.')
-tf.app.flags.DEFINE_integer('summary_frequency', 10,
+
+#####
+tf.app.flags.DEFINE_integer('summary_frequency', 100,
                             'A summary statement will be logged every '
                             '`summary_frequency` steps during training or '
                             'every `summary_frequency` seconds during '
                             'evaluation.')
+#####
+
 tf.app.flags.DEFINE_integer('num_checkpoints', 10,
                             'The number of most recent checkpoints to keep in '
                             'the training directory. Keeps all if 0.')
