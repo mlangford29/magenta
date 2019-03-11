@@ -345,9 +345,8 @@ default_configs = {
         magenta.protobuf.generator_pb2.GeneratorDetails(
             id='gru',
             description='Performance and dymanics with a GRU cell'),
-        magenta.music.OneHotEventSequenceEncoderDecoder(
-            magenta.music.PerformanceOneHotEncoding(
-                num_velocity_bins=32)),
+        magenta.music.ModuloPerformanceEventSequenceEncoderDecoder(
+            num_velocity_bins=32),
         tf.contrib.training.HParams(
             batch_size=64,
             rnn_layer_sizes=[512, 512, 512],
@@ -360,9 +359,8 @@ default_configs = {
         magenta.protobuf.generator_pb2.GeneratorDetails(
             id='indy_gru',
             description='Performance and dymanics with indy GRU cell'),
-        magenta.music.OneHotEventSequenceEncoderDecoder(
-            magenta.music.PerformanceOneHotEncoding(
-                num_velocity_bins=32)),
+        magenta.music.ModuloPerformanceEventSequenceEncoderDecoder(
+            num_velocity_bins=32),
         tf.contrib.training.HParams(
             batch_size=64,
             rnn_layer_sizes=[512, 512, 512],
@@ -375,9 +373,8 @@ default_configs = {
         magenta.protobuf.generator_pb2.GeneratorDetails(
             id='grid_lstm',
             description='Performance and dymanics with grid LSTM cell'),
-        magenta.music.OneHotEventSequenceEncoderDecoder(
-            magenta.music.PerformanceOneHotEncoding(
-                num_velocity_bins=32)),
+        magenta.music.ModuloPerformanceEventSequenceEncoderDecoder(
+            num_velocity_bins=32),
         tf.contrib.training.HParams(
             batch_size=64,
             rnn_layer_sizes=[512, 512, 512],
@@ -390,9 +387,8 @@ default_configs = {
         magenta.protobuf.generator_pb2.GeneratorDetails(
             id='bidirectional_grid_lstm',
             description='Performance and dymanics with bidirectional grid LSTM'),
-        magenta.music.OneHotEventSequenceEncoderDecoder(
-            magenta.music.PerformanceOneHotEncoding(
-                num_velocity_bins=32)),
+        magenta.music.ModuloPerformanceEventSequenceEncoderDecoder(
+            num_velocity_bins=32),
         tf.contrib.training.HParams(
             batch_size=64,
             rnn_layer_sizes=[512, 512, 512],
@@ -405,9 +401,8 @@ default_configs = {
         magenta.protobuf.generator_pb2.GeneratorDetails(
             id='phased_lstm',
             description='Performance and dymanics with phased LSTM'),
-        magenta.music.OneHotEventSequenceEncoderDecoder(
-            magenta.music.PerformanceOneHotEncoding(
-                num_velocity_bins=32)),
+        magenta.music.ModuloPerformanceEventSequenceEncoderDecoder(
+            num_velocity_bins=32),
         tf.contrib.training.HParams(
             batch_size=64,
             rnn_layer_sizes=[512, 512, 512],
@@ -420,9 +415,8 @@ default_configs = {
         magenta.protobuf.generator_pb2.GeneratorDetails(
             id='glstm',
             description='Performance and dymanics with a group LSTM'),
-        magenta.music.OneHotEventSequenceEncoderDecoder(
-            magenta.music.PerformanceOneHotEncoding(
-                num_velocity_bins=32)),
+        magenta.music.ModuloPerformanceEventSequenceEncoderDecoder(
+            num_velocity_bins=32),
         tf.contrib.training.HParams(
             batch_size=64,
             rnn_layer_sizes=[512, 512, 512],
@@ -435,9 +429,8 @@ default_configs = {
         magenta.protobuf.generator_pb2.GeneratorDetails(
             id='timefreq_lstm',
             description='Performance and dymanics with timefreq LSTM'),
-        magenta.music.OneHotEventSequenceEncoderDecoder(
-            magenta.music.PerformanceOneHotEncoding(
-                num_velocity_bins=32)),
+        magenta.music.ModuloPerformanceEventSequenceEncoderDecoder(
+            num_velocity_bins=32),
         tf.contrib.training.HParams(
             batch_size=64,
             rnn_layer_sizes=[512, 512, 512],
@@ -450,9 +443,8 @@ default_configs = {
         magenta.protobuf.generator_pb2.GeneratorDetails(
             id='intersection_rnn',
             description='Performance and dymanics with intersection RNN'),
-        magenta.music.OneHotEventSequenceEncoderDecoder(
-            magenta.music.PerformanceOneHotEncoding(
-                num_velocity_bins=32)),
+        magenta.music.ModuloPerformanceEventSequenceEncoderDecoder(
+            num_velocity_bins=32),
         tf.contrib.training.HParams(
             batch_size=64,
             rnn_layer_sizes=[512, 512, 512],
@@ -465,9 +457,8 @@ default_configs = {
         magenta.protobuf.generator_pb2.GeneratorDetails(
             id='ugrnn',
             description='Performance and dymanics with UGRNN'),
-        magenta.music.OneHotEventSequenceEncoderDecoder(
-            magenta.music.PerformanceOneHotEncoding(
-                num_velocity_bins=32)),
+        magenta.music.ModuloPerformanceEventSequenceEncoderDecoder(
+            num_velocity_bins=32),
         tf.contrib.training.HParams(
             batch_size=64,
             rnn_layer_sizes=[512, 512, 512],
@@ -480,9 +471,8 @@ default_configs = {
         magenta.protobuf.generator_pb2.GeneratorDetails(
             id='simple_rnn',
             description='Performance and dymanics with simple RNN'),
-        magenta.music.OneHotEventSequenceEncoderDecoder(
-            magenta.music.PerformanceOneHotEncoding(
-                num_velocity_bins=32)),
+        magenta.music.ModuloPerformanceEventSequenceEncoderDecoder(
+            num_velocity_bins=32),
         tf.contrib.training.HParams(
             batch_size=64,
             rnn_layer_sizes=[512, 512, 512],
