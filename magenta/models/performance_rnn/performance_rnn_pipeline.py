@@ -104,7 +104,17 @@ def get_pipeline(config, min_events, max_events, eval_ratio):
   """
   # Stretch by -5%, -2.5%, 0%, 2.5%, and 5%.
   # making this a range because why not
-  stretch_factors = range(.85,1.0025,0.0025)
+
+  # let's actually make a function because python doesn't know how to float YAY
+  def frange(start, end, step):
+    
+    factors = [start]
+
+    while factors[-1] < end:
+
+      factors.append(factors[1] + step)
+
+  stretch_factors = frange(.85,1.0025,0.0025)
 
   # Transpose!
   transposition_range = range(-6, 6)
