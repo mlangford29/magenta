@@ -112,7 +112,7 @@ def get_pipeline(config, min_events, max_events, eval_ratio):
 
     while factors[-1] < end:
 
-      factors.append(factors[1] + step)
+      factors.append(factors[-1] + step)
 
   stretch_factors = frange(.85,1.0025,0.0025)
 
