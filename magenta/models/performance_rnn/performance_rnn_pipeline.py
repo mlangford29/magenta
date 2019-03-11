@@ -114,6 +114,8 @@ def get_pipeline(config, min_events, max_events, eval_ratio):
 
       factors.append(factors[-1] + step)
 
+    return factors
+
   stretch_factors = frange(.85,1.0025,0.0025)
 
   # Transpose!
