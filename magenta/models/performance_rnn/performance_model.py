@@ -235,7 +235,7 @@ default_configs = {
         magenta.music.ModuloPerformanceEventSequenceEncoderDecoder(
             num_velocity_bins=32),
         tf.contrib.training.HParams(
-            batch_size=32,
+            batch_size=128,
             rnn_layer_sizes=[512, 512, 512],
             dropout_keep_prob=1.0,
             clip_norm=3,
@@ -348,7 +348,7 @@ default_configs = {
         magenta.music.ModuloPerformanceEventSequenceEncoderDecoder(
             num_velocity_bins=32),
         tf.contrib.training.HParams(
-            batch_size=32,
+            batch_size=128,
             rnn_layer_sizes=[512, 512, 512],
             dropout_keep_prob=1.0,
             clip_norm=3,
@@ -362,7 +362,7 @@ default_configs = {
         magenta.music.ModuloPerformanceEventSequenceEncoderDecoder(
             num_velocity_bins=32),
         tf.contrib.training.HParams(
-            batch_size=32,
+            batch_size=128,
             rnn_layer_sizes=[512, 512, 512],
             dropout_keep_prob=1.0,
             clip_norm=3,
@@ -376,7 +376,7 @@ default_configs = {
         magenta.music.ModuloPerformanceEventSequenceEncoderDecoder(
             num_velocity_bins=32),
         tf.contrib.training.HParams(
-            batch_size=32,
+            batch_size=128,
             rnn_layer_sizes=[512, 512, 512],
             dropout_keep_prob=1.0,
             clip_norm=3,
@@ -390,7 +390,7 @@ default_configs = {
         magenta.music.ModuloPerformanceEventSequenceEncoderDecoder(
             num_velocity_bins=32),
         tf.contrib.training.HParams(
-            batch_size=32,
+            batch_size=128,
             rnn_layer_sizes=[512, 512, 512],
             dropout_keep_prob=1.0,
             clip_norm=3,
@@ -404,7 +404,7 @@ default_configs = {
         magenta.music.ModuloPerformanceEventSequenceEncoderDecoder(
             num_velocity_bins=32),
         tf.contrib.training.HParams(
-            batch_size=32,
+            batch_size=128,
             rnn_layer_sizes=[512, 512, 512],
             dropout_keep_prob=1.0,
             clip_norm=3,
@@ -418,7 +418,7 @@ default_configs = {
         magenta.music.ModuloPerformanceEventSequenceEncoderDecoder(
             num_velocity_bins=32),
         tf.contrib.training.HParams(
-            batch_size=32,
+            batch_size=128,
             rnn_layer_sizes=[512, 512, 512],
             dropout_keep_prob=1.0,
             clip_norm=3,
@@ -432,7 +432,7 @@ default_configs = {
         magenta.music.ModuloPerformanceEventSequenceEncoderDecoder(
             num_velocity_bins=32),
         tf.contrib.training.HParams(
-            batch_size=32,
+            batch_size=128,
             rnn_layer_sizes=[512, 512, 512],
             dropout_keep_prob=1.0,
             clip_norm=3,
@@ -446,7 +446,7 @@ default_configs = {
         magenta.music.ModuloPerformanceEventSequenceEncoderDecoder(
             num_velocity_bins=32),
         tf.contrib.training.HParams(
-            batch_size=32,
+            batch_size=128,
             rnn_layer_sizes=[512, 512, 512],
             dropout_keep_prob=1.0,
             clip_norm=3,
@@ -460,7 +460,7 @@ default_configs = {
         magenta.music.ModuloPerformanceEventSequenceEncoderDecoder(
             num_velocity_bins=32),
         tf.contrib.training.HParams(
-            batch_size=32,
+            batch_size=128,
             rnn_layer_sizes=[512, 512, 512],
             dropout_keep_prob=1.0,
             clip_norm=3,
@@ -474,7 +474,7 @@ default_configs = {
         magenta.music.ModuloPerformanceEventSequenceEncoderDecoder(
             num_velocity_bins=32),
         tf.contrib.training.HParams(
-            batch_size=32,
+            batch_size=128,
             rnn_layer_sizes=[512, 512, 512],
             learning_rate=0.001),
         num_velocity_bins=32)
