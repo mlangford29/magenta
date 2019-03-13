@@ -106,7 +106,7 @@ def get_pipeline(config, min_events, max_events, eval_ratio):
   stretch_factors = [0.95, 0.975, 1.0, 1.025, 1.05]
 
   # Transpose!
-  transposition_range = range(-6, 6)
+  transposition_range = range(-3, 4)
 
   partitioner = pipelines_common.RandomPartition(
       music_pb2.NoteSequence,
