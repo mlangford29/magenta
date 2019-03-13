@@ -51,7 +51,7 @@ tf.app.flags.DEFINE_integer('num_eval_examples', 0,
                             'Leave as 0 to use the entire evaluation set.')
 
 #####
-tf.app.flags.DEFINE_integer('summary_frequency', 100,
+tf.app.flags.DEFINE_integer('summary_frequency', 20,
                             'A summary statement will be logged every '
                             '`summary_frequency` steps during training or '
                             'every `summary_frequency` seconds during '
