@@ -417,7 +417,7 @@ def get_build_graph_fn(mode, config, sequence_example_file_paths=None):
         loss_per_step = tf.reduce_sum(softmax_cross_entropy) / num_steps
         perplexity_per_step = tf.exp(loss_per_step)
 
-        optimizer = tf.train.RMSPropOptimizer(learning_rate=hparams.learning_rate) #AdamOptimizer(learning_rate=hparams.learning_rate)
+        optimizer = tf.train.AdamOptimizer(learning_rate=hparams.learning_rate)
 
         train_op = tf.contrib.slim.learning.create_train_op(
             loss, optimizer, clip_gradient_norm=hparams.clip_norm)

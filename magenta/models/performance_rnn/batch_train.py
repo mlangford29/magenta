@@ -18,20 +18,22 @@ generate_str = 'python performance_rnn_generate.py --config={} --run_dir=./logdi
 attn_substr = ' --hparams=\'attn_length\'=100'
 
 # all the configs you want to try
-config_list = [#'performance_with_dynamics_and_modulo_encoding', 
-				'performance_with_dynamics_and_modulo_encoding', 
+config_list = ['performance_with_dynamics_and_modulo_encoding', 
 				'gru', 
 				'indy_gru', 
 				'glstm', 
-				'intersection_rnn', #####
-				'ugrnn']
-config_names = [#'lstm', 
-				'lstm_attn', 
+				'intersection_rnn',
+				'ugrnn',
+				'performance_with_dynamics_and_modulo_encoding',
+				'simple_rnn']
+config_names = ['lstm_attn', 
 				'gru_attn', 
 				'indy_gru_attn', 
 				'glstm_attn', 
-				'intersection_attn', #####
-				'ugrnn_attn']
+				'intersection_attn',
+				'ugrnn_attn',
+				'lstm',
+				'simple_rnn']
 
 
 # function to choose the starting triad
