@@ -18,7 +18,7 @@ import tensorflow as tf
 
 
 def run_training(build_graph_fn, train_dir, num_training_steps=None,
-                 summary_frequency=100, save_checkpoint_secs=120,
+                 summary_frequency=100, save_checkpoint_secs=600,
                  checkpoints_to_keep=10, keep_checkpoint_every_n_hours=2,
                  master='', task=0, num_ps_tasks=0):
   """Runs the training loop.
