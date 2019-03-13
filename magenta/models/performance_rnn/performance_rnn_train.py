@@ -75,8 +75,7 @@ tf.app.flags.DEFINE_string(
 
 
 def main(unused_argv):
-  
-  print('WE ARE ONLY TRAINING 100 STEPS BECAUSE WE TESTING RIGHT NOW')
+
 
   tf.logging.set_verbosity(FLAGS.log)
 
