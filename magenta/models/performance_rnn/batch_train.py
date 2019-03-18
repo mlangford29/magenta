@@ -18,14 +18,10 @@ generate_str = 'python performance_rnn_generate.py --config={} --run_dir=./logdi
 attn_substr = ' --hparams=\'attn_length\'=128'
 
 # all the configs you want to try
-config_list = ['simple_rnn',
-				'performance_with_dynamics_and_modulo_encoding',
-				'simple_rnn', 
-				'performance_with_dynamics_and_modulo_encoding']
-config_names = ['simple_rnn',
-				'lstm',
-				'simple_rnn_attn', 
-				'lstm']
+config_list = ['performance_with_dynamics_and_modulo_encoding',
+				'simple_rnn']
+config_names = ['lstm_attn',
+				'simple_rnn_attn']
 
 
 # function to choose the starting triad
