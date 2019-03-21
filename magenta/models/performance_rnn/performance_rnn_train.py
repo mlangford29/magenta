@@ -39,7 +39,7 @@ tf.app.flags.DEFINE_string('sequence_example_file', '',
                            'evaluation.')
 
 #####
-tf.app.flags.DEFINE_integer('num_training_steps', 99139,
+tf.app.flags.DEFINE_integer('num_training_steps', 85810,
                             'The the number of global training steps your '
                             'model should take before exiting training. '
                             'Leave as 0 to run until terminated manually.')
