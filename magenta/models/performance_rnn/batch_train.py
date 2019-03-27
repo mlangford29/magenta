@@ -19,10 +19,8 @@ attn_substr = ' --hparams=\'attn_length\'=128'
 
 # all the configs you want to try
 config_list = ['simple_rnn',
-				'simple_rnn'
 				'performance_with_dynamics_and_modulo_encoding']
-config_names = ['simple_rnn',
-				'simple_rnn_attn',
+config_names = ['simple_rnn_attn',
 				'lstm_attn']
 
 
