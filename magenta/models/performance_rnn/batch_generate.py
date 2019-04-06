@@ -41,10 +41,10 @@ for i in range(len(config_list)):
 
 					_generate_str = generate_str.format(config, config_name, config_name, t, bs, bf, spi)
 
-	if 'attn' in config_name:
-		_generate_str += attn_substr
+					if 'attn' in config_name:
+						_generate_str += attn_substr
 
-	os.system(_generate_str)
+					os.system(_generate_str)
 
 print('Complete!')
 
