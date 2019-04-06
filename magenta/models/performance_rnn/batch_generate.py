@@ -19,10 +19,10 @@ config_list = ['performance_with_dynamics_and_modulo_encoding']
 config_names = ['lstm_attn']
 
 # generation parameter lists for a grid search
-t_list = [0.9, 1.0, 1.1]
-bs_list = [2, 16, 32]
-bf_list = [2, 16, 32]
-spi_list = [2, 64, 512]
+t_list = [0.7, 0.8, 0.9]
+bs_list = [4, 8, 16]
+bf_list = [2, 4, 8]
+spi_list = [16, 32, 128]
 
 # execute the first definitions
 os.system(input_dir_str)
