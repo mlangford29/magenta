@@ -21,8 +21,8 @@ config_names = ['lstm_attn']
 # generation parameter lists for a grid search
 t_list = [0.7, 0.8, 0.9]
 bs_list = [4, 8, 16]
-bf_list = [2, 4, 8]
-spi_list = [16, 32, 128]
+bf_list = [2, 4, 8, 128]
+spi_list = [16, 32, 128, 4096]
 
 # execute the first definitions
 os.system(input_dir_str)
