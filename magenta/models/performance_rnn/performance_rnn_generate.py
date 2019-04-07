@@ -247,13 +247,8 @@ def run_with_flags(generator):
     #midi_filename = '%s_%s.mid' % (date_and_time, str(i + 1).zfill(digits))
 
     # need some work to change the temperature to remove decimal point
-    temp = FLAGS.temperature
-    if temp > 1:
-      temp_str = str(temp).replace('.','_')
-    else:
-      temp_str = str(temp)[1:]
     midi_filename = 't{}_bs{}_bf{}_spi{}.mid'.format(
-      temp_str,
+      FLAGS.temperature,
       FLAGS.beam_size,
       FLAGS.branch_factor,
       FLAGS.steps_per_iteration)
