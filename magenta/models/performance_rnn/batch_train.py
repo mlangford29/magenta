@@ -31,11 +31,11 @@ def make_starting_triad():
 
 	# first find the root. 
 	# 60 is middle c, so let's go within an octave of that
-	root = random.randint(48, 73)
+	root = random.randint(48, 72)
 
 	# we'll say it's default minor triad, which would make the second pitch
 	# 3 semitones above the root. Add one more to that value if it's major
-	major_adjustment = random.randint(0,2) # 2 shouldn't be included in this
+	major_adjustment = random.randint(0,1)
 
 	triad = '[{},{},{}]'.format(root, root + 3 + major_adjustment, root + 7)
 

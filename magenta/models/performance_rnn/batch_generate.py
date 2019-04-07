@@ -10,19 +10,91 @@ import os
 input_dir_str = 'INPUT_DIRECTORY=./wtc_performance'
 seq_str = 'SEQUENCES_TFRECORD=./notesequences.tfrecord'
 config_str = 'CONFIG={}'
-#train_str = 'python performance_rnn_train.py --config={} --run_dir=./logdir/{} --sequence_example_file=./sequence_examples/training_performances.tfrecord'
-generate_str = 'python performance_rnn_generate.py --config={} --run_dir=./logdir/{} --output_dir=./logdir/{}/generated --num_outputs=1 --num_steps=1000 --primer_pitches=[60,64,67] --temperature={} --beam_size={} --branch_factor={} --steps_per_iteration={}'
+generate_str = 'python performance_rnn_generate.py --config={} --run_dir=./logdir/{} --output_dir=./logdir/{}/generated --num_outputs=1 --num_steps=2000 --temperature={} --beam_size={} --branch_factor={} --steps_per_iteration={}'
 attn_substr = ' --hparams=\'attn_length\'=128'
 
 # all the configs you want to try
-config_list = ['performance_with_dynamics_and_modulo_encoding']
-config_names = ['lstm_attn']
+
+##### WE NEED SOME MORE OF THESE
+config_list = ['simple_rnn',
+				'simple_rnn',
+				'performance_with_dynamics_and_modulo_encoding',
+				'performance_with_dynamics_and_modulo_encoding']
+config_names = ['simple_rnn',
+				'simple_rnn_attn',
+				'lstm',
+				'lstm_attn']
+#####
 
 # generation parameter lists for a grid search
-t_list = [0.7, 0.8, 0.9]
-bs_list = [4, 8, 16]
-bf_list = [2, 4, 8, 128]
-spi_list = [16, 32, 128, 4096]
+t_list = [0.8, 0.9]
+bs_list = [4, 16]
+bf_list = [2, 16]
+spi_list = [32, 128]
+
+# random starting triad!
+def make_starting_triad():
+
+	import random
+
+	# first find the root. 
+	# 60 is middle c, so let's go within an octave of that
+	root = random.randint(48, 72)
+
+	# we'll say it's default minor triad, which would make the second pitch
+	# 3 semitones above the root. Add one more to that value if it's major
+	major_adjustment = random.randint(0,1)
+
+	triad = '[{},{},{}]'.format(root, root + 3 + major_adjustment, root + 7)
+
+	return triad
+
+# make random ascending scale instead
+def make_starting_run():
+
+	import random
+
+	# first find the root
+	# 60 is middle c, so we'll start within an octave of that
+	# we'll do natural minor scale as a base and then add major adjustment to that
+	root = random.randint(48,72)
+
+	# major adjustment
+	ma = random.randint(0,1)
+
+	run = '[{},{},{},{},{},{},{}]'.format(
+			root,
+			root + 2,
+			root + 3 + ma,
+			root + 5,
+			root + 7,
+			root + 8 + ma,
+			root + 10 + ma)
+
+	return run
+
+# new function to add the primer whatever to the stuff
+def add_primer(gen_str):
+
+	import random
+
+	choice = random.randint(0,1)
+
+	# split between run or triad
+	if choice == 0:
+
+		# we do a triad
+		primer_str = ' --primer_pitches={}'.format(make_starting_triad())
+
+	else:
+
+		# we do a run
+		primer_str = ' --primer_melody={}'.format(make_starting_run())
+
+	gen_str += primer_str
+
+	return gen_str
+
 
 # execute the first definitions
 os.system(input_dir_str)
@@ -41,10 +113,12 @@ for i in range(len(config_list)):
 
 					_generate_str = generate_str.format(config, config_name, config_name, t, bs, bf, spi)
 
-					if 'attn' in config_name:
-						_generate_str += attn_substr
+					gen_str = add_primer(_generate_str)
 
-					os.system(_generate_str)
+					if 'attn' in config_name:
+						gen_str += attn_substr
+
+					os.system(gen_str)
 
 print('Complete!')
 
