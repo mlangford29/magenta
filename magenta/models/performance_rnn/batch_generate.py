@@ -10,7 +10,7 @@ import os
 input_dir_str = 'INPUT_DIRECTORY=./wtc_performance'
 seq_str = 'SEQUENCES_TFRECORD=./notesequences.tfrecord'
 config_str = 'CONFIG={}'
-generate_str = 'python performance_rnn_generate.py --config={} --run_dir=./logdir/{} --output_dir=./logdir/{}/generated --num_outputs=1 --num_steps=2000 --temperature={} --beam_size={} --branch_factor={} --steps_per_iteration={}'
+generate_str = 'python performance_rnn_generate.py --config={} --run_dir=./logdir/{} --output_dir=./logdir/{}/generated --num_outputs=10 --num_steps=5000 --temperature={} --beam_size={} --branch_factor={} --steps_per_iteration={}'
 attn_substr = ' --hparams=\'attn_length\'=128'
 
 # all the configs you want to try
@@ -27,10 +27,10 @@ config_names = ['simple_rnn',
 #####
 
 # generation parameter lists for a grid search
-t_list = [0.8, 0.9]
-bs_list = [4, 16]
-bf_list = [2, 16]
-spi_list = [32, 128]
+t_list = [0.9]
+bs_list = [16]
+bf_list = [16]
+spi_list = [32]
 
 # random starting triad!
 def make_starting_triad():

@@ -243,15 +243,16 @@ def run_with_flags(generator):
   for i in range(FLAGS.num_outputs):
     generated_sequence = generator.generate(primer_sequence, generator_options)
 
-    ##### Edited by Michael on 4/4/19
-    #midi_filename = '%s_%s.mid' % (date_and_time, str(i + 1).zfill(digits))
+    
+    midi_filename = '%s_%s.mid' % (date_and_time, str(i + 1).zfill(digits))
 
+    ##### Edited by Michael on 4/4/19
     # need some work to change the temperature to remove decimal point
-    midi_filename = 't{}_bs{}_bf{}_spi{}.mid'.format(
-      FLAGS.temperature,
-      FLAGS.beam_size,
-      FLAGS.branch_factor,
-      FLAGS.steps_per_iteration)
+    #midi_filename = 't{}_bs{}_bf{}_spi{}.mid'.format(
+    #  FLAGS.temperature,
+    #  FLAGS.beam_size,
+    #  FLAGS.branch_factor,
+    #  FLAGS.steps_per_iteration)
     #####
 
     midi_path = os.path.join(output_dir, midi_filename)
