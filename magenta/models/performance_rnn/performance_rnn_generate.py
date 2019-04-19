@@ -288,8 +288,8 @@ def main(unused_argv):
 
 
   ##### TRYING TO COUNT MODEL PARAMETERS HERE
-  import numpy as np
-  print(np.sum([np.prod(v.get_shape().as_list()) for v in tf.trainable_variables()]))
+  all_trainable_vars = tf.reduce_sum([tf.reduce_prod(v.shape) for v in tf.trainable_variables()])
+  print(sess.run(all_trainable_vars))
   quit()
   #####
 
