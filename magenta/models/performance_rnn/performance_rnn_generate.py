@@ -243,6 +243,12 @@ def run_with_flags(generator):
   for i in range(FLAGS.num_outputs):
     generated_sequence = generator.generate(primer_sequence, generator_options)
 
+    ##### TRYING TO COUNT MODEL PARAMETERS HERE
+    import numpy as np
+    print(np.sum([np.prod(v.get_shape().as_list()) for v in tf.trainable_variables()]))
+    quit()
+    #####
+
     
     midi_filename = '%s_%s.mid' % (date_and_time, str(i + 1).zfill(digits))
 
@@ -285,13 +291,6 @@ def main(unused_argv):
       checkpoint=get_checkpoint(),
       bundle=bundle,
       note_performance=config.note_performance)
-
-
-  ##### TRYING TO COUNT MODEL PARAMETERS HERE
-  all_trainable_vars = tf.reduce_sum([tf.reduce_prod(v.shape) for v in tf.trainable_variables()])
-  print(all_trainable_vars)
-  quit()
-  #####
 
   if FLAGS.save_generator_bundle:
     bundle_filename = os.path.expanduser(FLAGS.bundle_file)
