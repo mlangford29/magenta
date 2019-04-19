@@ -26,7 +26,7 @@ t_list = [0.9]
 bs_list = [16]
 bf_list = [16]
 spi_list = [32]
-num_to_gen = 10
+num_to_gen = 1
 
 # random starting triad!
 def make_starting_triad():
