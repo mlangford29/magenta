@@ -286,6 +286,20 @@ def main(unused_argv):
       bundle=bundle,
       note_performance=config.note_performance)
 
+
+  ##### TRYING TO COUNT MODEL PARAMETERS HERE
+  total_parameters = 0
+  for variable in tf.trainable_variables():
+      # shape is an array of tf.Dimension
+      shape = variable.get_shape()
+      variable_parameters = 1
+      for dim in shape:
+          variable_parameters *= dim.value
+      total_parameters += variable_parameters
+  print(total_parameters)
+  quit()
+  #####
+
   if FLAGS.save_generator_bundle:
     bundle_filename = os.path.expanduser(FLAGS.bundle_file)
     if FLAGS.bundle_description is None:

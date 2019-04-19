@@ -16,14 +16,9 @@ attn_substr = ' --hparams=\'attn_length\'=128'
 # all the configs you want to try
 
 ##### WE NEED SOME MORE OF THESE
-config_list = ['simple_rnn',
-				'simple_rnn',
-				'performance_with_dynamics_and_modulo_encoding',
-				'performance_with_dynamics_and_modulo_encoding']
-config_names = ['simple_rnn',
-				'simple_rnn_attn',
-				'lstm',
-				'lstm_attn']
+config_list = ['simple_rnn']#,
+				#'performance_with_dynamics_and_modulo_encoding']
+config_names = ['simple_rnn']
 #####
 
 # generation parameter lists for a grid search
