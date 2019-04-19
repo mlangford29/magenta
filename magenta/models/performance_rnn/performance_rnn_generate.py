@@ -288,16 +288,8 @@ def main(unused_argv):
 
 
   ##### TRYING TO COUNT MODEL PARAMETERS HERE
-  total_parameters = 0
-  for variable in tf.trainable_variables():
-      # shape is an array of tf.Dimension
-      shape = variable.get_shape()
-      variable_parameters = 1
-      for dim in shape:
-          variable_parameters *= dim.value
-      total_parameters += variable_parameters
-  print(total_parameters)
-  quit()
+  import numpy as np
+  np.sum([np.prod(v.get_shape().as_list()) for v in tf.trainable_variables()])
   #####
 
   if FLAGS.save_generator_bundle:
