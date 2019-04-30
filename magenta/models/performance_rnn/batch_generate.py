@@ -10,7 +10,7 @@ import os
 input_dir_str = 'INPUT_DIRECTORY=./wtc_performance'
 seq_str = 'SEQUENCES_TFRECORD=./notesequences.tfrecord'
 config_str = 'CONFIG={}'
-generate_str = 'python performance_rnn_generate.py --config={} --run_dir=./logdir/{} --output_dir=./logdir/{}/generated --num_outputs=1 --num_steps=10000 --temperature={} --beam_size={} --branch_factor={} --steps_per_iteration={}'
+generate_str = 'python performance_rnn_generate.py --config={} --run_dir=./logdir/{} --output_dir=./logdir/{}/generated --num_outputs=1 --num_steps=5000 --temperature={} --beam_size={} --branch_factor={} --steps_per_iteration={}'
 attn_substr = ' --hparams=\'attn_length\'=128'
 
 # all the configs you want to try
