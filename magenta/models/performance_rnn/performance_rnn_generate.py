@@ -242,13 +242,6 @@ def run_with_flags(generator):
   digits = len(str(FLAGS.num_outputs))
   for i in range(FLAGS.num_outputs):
     generated_sequence = generator.generate(primer_sequence, generator_options)
-
-    ##### TRYING TO COUNT MODEL PARAMETERS HERE
-    import numpy as np
-    print(np.sum([np.prod(v.get_shape().as_list()) for v in tf.trainable_variables()]))
-    quit()
-    #####
-
     
     midi_filename = '%s_%s.mid' % (date_and_time, str(i + 1).zfill(digits))
 
